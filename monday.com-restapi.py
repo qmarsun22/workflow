@@ -4,9 +4,7 @@ import json
 ##
 #C:\Users\KumarSundaram>python monday_test.py
 #<Response [200]>
-#{'data': {'boards': [{'id': '2722205215', 'name': 'projectplan'}]}, 'account_id': 12286202}
 #<Response [200]>
-#{'data': {'boards': [{'items': [{'id': '2722205274', 'name': 'test'}, {'id': '2722205288', 'name': 'task #2'}, {'id': '2722793861', 'name': 'WHAT IS UP MY FRIENDS!'}]}]}, 'account_id': 12286202}
 # https://support.monday.com/hc/en-us/articles/360013483119-API-Quickstart-Tutorial-Python
 
 with open('mykey.json') as f:

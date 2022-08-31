@@ -25,7 +25,7 @@ def get_token():
 
 def insert_records():
     import requests
-    import json
+    import jsona
 
     url = 'https://www.zohoapis.com/crm/v2/Leads'
 
@@ -79,9 +79,11 @@ def insert_records():
 
 #insert_records()
 
+def write_refresh_access_token(jsonmsg):
+    print("test")
 
 def get_refresh_access_token(key):
-    print(key)
+    print(f"get_refresh_access_token {key}")
     apiUrl = "https://accounts.zoho.com/oauth/v2/token"
     r = requests.post(url=apiUrl, data=key )
     print(r)
@@ -93,38 +95,51 @@ def get_refresh_access_token(key):
     print(f'refrsh token {refresh_token}')
     return(accesss_token,refresh_token)
 
-def get_org(auth_token):
+def get_invoice(auth_token,client_id):
+    print("get invoice")
     print(f"auth tokent {auth_token}")
-    apiurl=f"https://invoice.zoho.com/api/v3/organizations?authtoken={auth_token}"
-    r = requests.post(url=apiurl )
+    auth_token=f"Zoho-oauthtoken {auth_token}"
+    invoice_orgid="784564479"
+   # auth_token=f"Zoho-oauthtoken {auth_token}"
+    auth_token=f"{auth_token}"
+    myheader = {"X-com-zoho-invoice-organizationid":invoice_orgid , 
+               "Authorization": auth_token}
+    print(f"my header {myheader}")
+    apiurl=f"https://invoice.zoho.com/api/v3/invoices"
+    print(f"get apiurl {apiurl}")
+    r = requests.get(apiurl, headers=myheader )
     print(r)
-    print('get_org', r.json())
+    print('get_invoice', r.json())
 
-def get_invoice(auth):
-    apiurl="https://invoice.zoho.com/api/v3/invoices"
+
 
 def gen_oath_token():
         a=1
 #https://accounts.zoho.com/oauth/v2/token?
-
 #/////////////// main
 
 #$ curl https://inventory.zoho.com/api/v1/organizations?authtoken=ba4604e8e433g9c892e360d53463oec5
 
 print(sys.argv[1])
 if(sys.argv[1] == "clean"):
+    print("ZohoInvoice.fullaccess.all")
+    print("https://api-console.zoho.com/")
     cleanup()
     sys.exit()
 
+
 key=get_token()
+
 #download the api key
 #https://api-console.zoho.com/
 # 'ZohoInvoice.invoices.READ
 print(key)
+
 (access , refresh) = get_refresh_access_token(key)
 # if you get once then try to reuse it.
-
-get_org(access)
+client_id = key["client_id"]
+print(f"client id {client_id}")
+get_invoice(access,client_id)
 #https://www.zoho.com/invoice/api/v3/introduction/
 
 
@@ -260,7 +275,6 @@ apiurl="https://accounts.zoho.com/oauth/v2/token?"\
 #r = requests.post(url=apiUrl, json=input_data )
 #print(r)
 #print('token',r.json())
-
 #1004.IUK6PUCO9RDV9OYCQQ5SWKZF8MNXBA
-
+a
 #8655f206e4d44ed68c090a4bcfc05e9a110b6a2075
